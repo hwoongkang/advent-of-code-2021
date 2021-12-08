@@ -1,4 +1,4 @@
 mod days;
 fn main() {
-    days::day3::solve();
+    days::day4::solve();
 }
