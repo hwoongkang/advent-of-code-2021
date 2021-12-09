@@ -1,21 +1,15 @@
 use std::collections::HashSet;
-use std::io::{self, Read, Write};
+use std::fs;
 
 pub fn solve() {
-    let stdout = io::stdout();
-    let mut output = io::BufWriter::new(stdout.lock());
+    let input = fs::read_to_string("inputs/day1.txt").expect("Input not provided");
 
-    let mut input = String::new();
-    let stdin = io::stdin();
-    stdin.lock().read_to_string(&mut input).unwrap();
-
-    let lines: Vec<&str> = input.lines().collect();
-
-    writeln!(output, "{}", part1(&lines)).unwrap();
-    writeln!(output, "{}", part2(&lines)).unwrap();
+    println!("{}", part1(&input));
+    println!("{}", part2(&input));
 }
 
-fn part1(lines: &[&str]) -> u32 {
+fn part1(input: &str) -> u32 {
+    let lines: Vec<&str> = input.lines().collect();
     let length = lines[0].trim().len();
     let binaries: Vec<u16> = lines
         .iter()
@@ -41,7 +35,8 @@ fn part1(lines: &[&str]) -> u32 {
     binary_to_decimal(&gamma_rate) * binary_to_decimal(&epsilon_rate)
 }
 
-fn part2(lines: &[&str]) -> u32 {
+fn part2(input: &str) -> u32 {
+    let lines: Vec<&str> = input.lines().collect();
     let length = lines[0].trim().len();
     let mut binaries: HashSet<u16> = lines
         .iter()
@@ -105,4 +100,21 @@ fn binary_to_decimal(binary: &[bool]) -> u32 {
         pow *= 2;
     }
     ans
+}
+
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn part1() {
+        use super::*;
+        let input = fs::read_to_string("src/samples/day3.txt").expect("Input not provided");
+        assert_eq!(part1(&input), 198);
+    }
+
+    #[test]
+    fn part2() {
+        use super::*;
+        let input = fs::read_to_string("src/samples/day3.txt").expect("Input not provided");
+        assert_eq!(part2(&input), 230);
+    }
 }

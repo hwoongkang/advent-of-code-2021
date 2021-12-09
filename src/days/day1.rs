@@ -1,22 +1,16 @@
-use std::io::{self, Read, Write};
+use std::fs;
 pub fn solve() {
-    let stdout = io::stdout();
-    let mut output = io::BufWriter::new(stdout.lock());
+    let input = fs::read_to_string("inputs/day1.txt").expect("Input not provided");
 
-    let mut input = String::new();
-    let stdin = io::stdin();
-    stdin.lock().read_to_string(&mut input).unwrap();
-
-    let depths: Vec<u16> = input.lines().map(|line| line.parse().unwrap()).collect();
-
-    // writeln!(output, "{}", part1(&depths)).unwrap();
-    writeln!(output, "{}", part2(&depths)).unwrap();
+    println!("{}", part1(&input));
+    println!("{}", part2(&input));
 }
 
-fn part1(input: &[u16]) -> usize {
+fn part1(input: &str) -> usize {
+    let depths: Vec<u16> = input.lines().map(|line| line.parse().unwrap()).collect();
     let mut prev = u16::MAX;
     let mut ans: usize = 0;
-    for &depth in input.iter() {
+    for &depth in depths.iter() {
         if depth > prev {
             ans += 1;
         }
@@ -25,12 +19,13 @@ fn part1(input: &[u16]) -> usize {
     ans
 }
 
-fn part2(input: &[u16]) -> usize {
+fn part2(input: &str) -> usize {
+    let depths: Vec<u16> = input.lines().map(|line| line.parse().unwrap()).collect();
     let mut ans = 0;
     let mut prev = u16::MAX;
 
-    for ind in 0..input.len() - 2 {
-        let sum = input[ind] + input[ind + 1] + input[ind + 2];
+    for ind in 0..depths.len() - 2 {
+        let sum = depths[ind] + depths[ind + 1] + depths[ind + 2];
         if sum > prev {
             ans += 1;
         }
@@ -38,4 +33,21 @@ fn part2(input: &[u16]) -> usize {
     }
 
     ans
+}
+
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn part1() {
+        use super::*;
+        let input = fs::read_to_string("src/samples/day1.txt").expect("Input not provided");
+        assert_eq!(part1(&input), 7);
+    }
+
+    #[test]
+    fn part2() {
+        use super::*;
+        let input = fs::read_to_string("src/samples/day1.txt").expect("Input not provided");
+        assert_eq!(part2(&input), 5);
+    }
 }

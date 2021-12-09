@@ -1,6 +1,6 @@
 use std::cmp::Ordering;
 use std::collections::{BinaryHeap, HashMap};
-use std::io::{self, Read, Write};
+use std::fs;
 
 #[derive(Eq, PartialEq)]
 struct BingoResult(usize, u32);
@@ -104,20 +104,14 @@ impl Bingo {
 }
 
 pub fn solve() {
-    let stdout = io::stdout();
-    let mut output = io::BufWriter::new(stdout.lock());
+    let input = fs::read_to_string("inputs/day1.txt").expect("Input not provided");
 
-    let mut input = String::new();
-    let stdin = io::stdin();
-    stdin.lock().read_to_string(&mut input).unwrap();
-
-    let lines: Vec<&str> = input.lines().collect();
-
-    writeln!(output, "{}", part1(&lines)).unwrap();
-    writeln!(output, "{}", part2(&lines)).unwrap();
+    println!("{}", part1(&input));
+    println!("{}", part2(&input));
 }
 
-fn part1(lines: &[&str]) -> u32 {
+fn part1(input: &str) -> u32 {
+    let lines: Vec<&str> = input.lines().collect();
     let mut lines = lines.iter();
     let input: Vec<u32> = lines
         .next()
@@ -141,7 +135,8 @@ fn part1(lines: &[&str]) -> u32 {
     0
 }
 
-fn part2(lines: &[&str]) -> u32 {
+fn part2(input: &str) -> u32 {
+    let lines: Vec<&str> = input.lines().collect();
     let mut lines = lines.iter();
     let input: Vec<u32> = lines
         .next()
@@ -158,4 +153,21 @@ fn part2(lines: &[&str]) -> u32 {
         .map(|bingo| bingo.simulate(&input))
         .collect();
     results.peek().unwrap().1
+}
+
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn part1() {
+        use super::*;
+        let input = fs::read_to_string("src/samples/day4.txt").expect("Input not provided");
+        assert_eq!(part1(&input), 4512);
+    }
+
+    #[test]
+    fn part2() {
+        use super::*;
+        let input = fs::read_to_string("src/samples/day4.txt").expect("Input not provided");
+        assert_eq!(part2(&input), 1924);
+    }
 }

@@ -1,4 +1,4 @@
-use std::io::{self, Read, Write};
+use std::fs;
 
 enum Command {
     Forward(i32),
@@ -7,18 +7,14 @@ enum Command {
 }
 
 pub fn solve() {
-    let stdout = io::stdout();
-    let mut output = io::BufWriter::new(stdout.lock());
+    let input = fs::read_to_string("inputs/day1.txt").expect("Input not provided");
 
-    let mut input = String::new();
-    let stdin = io::stdin();
-    stdin.lock().read_to_string(&mut input).unwrap();
-
-    // writeln!(output, "{}", part1(input.lines())).unwrap();
-    writeln!(output, "{}", part2(input.lines())).unwrap();
+    println!("{}", part1(&input));
+    println!("{}", part2(&input));
 }
 
-fn part1(lines: std::str::Lines) -> i32 {
+fn part1(input: &str) -> i32 {
+    let lines = input.lines();
     let commands: Vec<Command> = parse_lines(lines);
 
     let (horz, vert) = simulate(&commands);
@@ -26,7 +22,8 @@ fn part1(lines: std::str::Lines) -> i32 {
     horz * vert
 }
 
-fn part2(lines: std::str::Lines) -> i32 {
+fn part2(input: &str) -> i32 {
+    let lines = input.lines();
     let commands: Vec<Command> = parse_lines(lines);
 
     let (horz, vert) = simulate2(&commands);
@@ -77,4 +74,21 @@ fn simulate2(commands: &[Command]) -> (i32, i32) {
         }
     }
     (horizontal, depth)
+}
+
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn part1() {
+        use super::*;
+        let input = fs::read_to_string("src/samples/day2.txt").expect("Input not provided");
+        assert_eq!(part1(&input), 150);
+    }
+
+    #[test]
+    fn part2() {
+        use super::*;
+        let input = fs::read_to_string("src/samples/day2.txt").expect("Input not provided");
+        assert_eq!(part2(&input), 900);
+    }
 }

@@ -76,11 +76,6 @@ fn construct_dicts(ten_digits: &[&str]) -> (HashMap<char, usize>, HashMap<usize,
         .unwrap()
         .chars()
         .collect();
-    let zero_six_nine: Vec<HashSet<char>> = ten_digits
-        .iter()
-        .filter(|word| word.len() == 6)
-        .map(|word| word.chars().collect())
-        .collect();
     let two_three_five: Vec<HashSet<char>> = ten_digits
         .iter()
         .filter(|word| word.len() == 5)
@@ -124,31 +119,34 @@ fn construct_dicts(ten_digits: &[&str]) -> (HashMap<char, usize>, HashMap<usize,
         .collect::<HashSet<char>>();
 
     let e = ce.difference(&one).next().unwrap();
-    let A = 2;
-    let B = 3;
-    let C = 5;
-    let D = 7;
-    let E = 11;
-    let F = 13;
-    let G = 17;
-    segments.insert(*a, A);
-    segments.insert(*b, B);
-    segments.insert(*c, C);
-    segments.insert(*d, D);
-    segments.insert(*e, E);
-    segments.insert(*f, F);
-    segments.insert(*g, G);
+    let prime_a = 2;
+    let prime_b = 3;
+    let prime_c = 5;
+    let prime_d = 7;
+    let prime_e = 11;
+    let prime_f = 13;
+    let prime_g = 17;
+    segments.insert(*a, prime_a);
+    segments.insert(*b, prime_b);
+    segments.insert(*c, prime_c);
+    segments.insert(*d, prime_d);
+    segments.insert(*e, prime_e);
+    segments.insert(*f, prime_f);
+    segments.insert(*g, prime_g);
 
-    numbers.insert(A * B * C * E * F * G, 0);
-    numbers.insert(C * F, 1);
-    numbers.insert(A * C * D * E * G, 2);
-    numbers.insert(A * C * D * F * G, 3);
-    numbers.insert(B * C * D * F, 4);
-    numbers.insert(A * B * D * F * G, 5);
-    numbers.insert(A * B * D * E * F * G, 6);
-    numbers.insert(A * C * F, 7);
-    numbers.insert(A * B * C * D * E * F * G, 8);
-    numbers.insert(A * B * C * D * F * G, 9);
+    numbers.insert(prime_a * prime_b * prime_c * prime_e * prime_f * prime_g, 0);
+    numbers.insert(prime_c * prime_f, 1);
+    numbers.insert(prime_a * prime_c * prime_d * prime_e * prime_g, 2);
+    numbers.insert(prime_a * prime_c * prime_d * prime_f * prime_g, 3);
+    numbers.insert(prime_b * prime_c * prime_d * prime_f, 4);
+    numbers.insert(prime_a * prime_b * prime_d * prime_f * prime_g, 5);
+    numbers.insert(prime_a * prime_b * prime_d * prime_e * prime_f * prime_g, 6);
+    numbers.insert(prime_a * prime_c * prime_f, 7);
+    numbers.insert(
+        prime_a * prime_b * prime_c * prime_d * prime_e * prime_f * prime_g,
+        8,
+    );
+    numbers.insert(prime_a * prime_b * prime_c * prime_d * prime_f * prime_g, 9);
 
     (segments, numbers)
 }
