@@ -128,10 +128,6 @@ fn part2(input: &str) -> usize {
 mod tests {
     use super::*;
 
-    fn get_input() -> String {
-        fs::read_to_string("src/samples/day12-1.txt").expect("No input provided")
-    }
-
     #[test]
     fn part1() {
         let input_1 = fs::read_to_string("src/samples/day12-1.txt").expect("No input provided");
