@@ -9,16 +9,17 @@ fn main() {
     println!("{}", day);
 
     match day {
-        1 => days::day1::solve(),
-        2 => days::day2::solve(),
-        3 => days::day3::solve(),
-        4 => days::day4::solve(),
-        5 => days::day5::solve(),
-        6 => days::day6::solve(),
-        7 => days::day7::solve(),
-        8 => days::day8::solve(),
-        9 => days::day9::solve(),
+        1 => days::day01::solve(),
+        2 => days::day02::solve(),
+        3 => days::day03::solve(),
+        4 => days::day04::solve(),
+        5 => days::day05::solve(),
+        6 => days::day06::solve(),
+        7 => days::day07::solve(),
+        8 => days::day08::solve(),
+        9 => days::day09::solve(),
         10 => days::day10::solve(),
+        11 => days::day11::solve(),
         _ => println!("No solution for day {}", day),
     }
 }
