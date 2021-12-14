@@ -22,6 +22,7 @@ fn main() {
         11 => days::day11::solve(),
         12 => days::day12::solve(),
         13 => days::day13::solve(),
+        14 => days::day14::solve(),
         _ => println!("No solution for day {}", day),
     }
 }
